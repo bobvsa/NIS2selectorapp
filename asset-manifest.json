@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/NIS2selectorapp/static/css/main.2e1e7fcd.css",
-    "main.js": "/NIS2selectorapp/static/js/main.66625771.js",
+    "main.js": "/NIS2selectorapp/static/js/main.6a4da636.js",
     "index.html": "/NIS2selectorapp/index.html",
     "main.2e1e7fcd.css.map": "/NIS2selectorapp/static/css/main.2e1e7fcd.css.map",
-    "main.66625771.js.map": "/NIS2selectorapp/static/js/main.66625771.js.map"
+    "main.6a4da636.js.map": "/NIS2selectorapp/static/js/main.6a4da636.js.map"
   },
   "entrypoints": [
     "static/css/main.2e1e7fcd.css",
-    "static/js/main.66625771.js"
+    "static/js/main.6a4da636.js"
   ]
 }
