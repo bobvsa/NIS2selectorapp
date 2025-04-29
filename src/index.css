@@ -1,2 +1,95 @@
 /* index.css */
-body { margin: 0; padding: 0; font-family: Rubik, sans-serif; }
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Rubik, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  margin-right: 8px;
+  position: relative;
+  cursor: pointer;
+  background: white;
+}
+
+.checkbox:checked {
+  background-color: white;
+}
+
+.checkbox:checked:after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 3px;
+  height: 8px;
+  border: solid #003965;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.service-button {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #003965;
+  font-family: Rubik, sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+
+.service-button.selected {
+  background-color: #003965;
+  color: white;
+}
+
+.service-button:not(.selected) {
+  background-color: white;
+  color: #003965;
+}
+
+.card {
+  background-color: #f8fafc;
+  border-radius: 8px;
+  padding: 24px;
+  height: 100%;
+}
+
+.card-title {
+  color: #003965;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.card-subtitle {
+  color: #003965;
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+
+.item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.875rem;
+}

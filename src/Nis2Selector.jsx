@@ -93,98 +93,88 @@ export default function Nis2Selector() {
   const toggle = key => setServices(prev => ({ ...prev, [key]: !prev[key] }));
   const levelIndex = levels.findIndex(l => l.key === currentKey);
 
-  const primaryColor = '#003965';
-
   return (
-    <div className="relative p-6" style={{ fontFamily: 'Rubik, sans-serif' }}>
-      {/* Logo rechtsboven */}
-      <div className="absolute top-6 right-6">
-        <img src="/path/to/logo.png" alt="VSA Logo" className="h-12 w-auto" />
+    <div className="p-8">
+      <div className="absolute top-4 right-4">
+        <img src="/VSA-Logo-2023.png" alt="VSA Logo" className="h-12" />
       </div>
-      <h1
-        className="text-3xl mb-4"
-        style={{ color: primaryColor, fontFamily: 'Rubik Medium, sans-serif', fontWeight: 500 }}
-      >
+      
+      <h1 className="text-2xl font-medium mb-6" style={{ color: '#003965' }}>
         NIS2 Product- en Dienstenoverzicht
       </h1>
-      <div className="flex flex-wrap gap-2 mb-6">
-        {Object.entries(serviceLabels).map(([key, label]) => {
-          const selected = services[key];
-          return (
-            <button
-              key={key}
-              onClick={() => toggle(key)}
-              style={{
-                backgroundColor: selected ? primaryColor : '#fff',
-                color: selected ? '#fff' : primaryColor,
-                borderColor: primaryColor,
-                fontFamily: 'Rubik, sans-serif'
-              }}
-              className="px-4 py-1 rounded-full border transition"
-            >
-              {label}
-            </button>
-          );
-        })}
+
+      <div className="flex flex-wrap mb-8">
+        {Object.entries(serviceLabels).map(([key, label]) => (
+          <button
+            key={key}
+            onClick={() => toggle(key)}
+            className={`service-button ${services[key] ? 'selected' : ''}`}
+          >
+            {label}
+          </button>
+        ))}
       </div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {levels.map((level, idx) => {
           const isActive = idx === levelIndex;
           const isPast = idx < levelIndex;
-          const listSpacing = level.key === 'compliant' ? 'mt-6' : 'mt-2';
+
           return (
-            <div
-              key={level.key}
-              className="rounded-lg p-4"
-              style={{ backgroundColor: '#f1f5f9' }}
-            >
-              <div className="flex items-center justify-between mb-2">
-                <h2
-                  className="text-xl"
-                  style={{
-                    color: primaryColor,
-                    fontFamily: 'Rubik Medium, sans-serif',
-                    fontWeight: 500
-                  }}
-                >
-                  {level.name}
-                </h2>
-                <div className="flex space-x-1">
-                  {[0, 1, 2].map(i => (
+            <div key={level.key} className="card">
+              <div className="flex justify-between items-center mb-2">
+                <h2 className="card-title">{level.name}</h2>
+                <div className="flex">
+                  {[...Array(3)].map((_, i) => (
                     <span
                       key={i}
-                      className={i < level.stars ? 'text-yellow-400' : 'text-gray-300'}
+                      style={{
+                        color: i < level.stars ? '#FFD700' : '#E5E7EB',
+                        marginLeft: '2px'
+                      }}
                     >
                       ★
                     </span>
                   ))}
                 </div>
               </div>
-              <p
-                className="font-medium mb-3"
-                style={{ color: primaryColor, fontFamily: 'Rubik, sans-serif' }}
-              >
-                {level.license}
-              </p>
-              <ul className={`space-y-1 ${listSpacing}`}>  
+              
+              <p className="card-subtitle">{level.license}</p>
+              
+              <ul className="item-list">
                 {level.items.map((item, index) => {
                   const isEssentialLevel = level.key === 'essential';
                   const isCompliantLevel = level.key === 'compliant';
-                  const spacerBeforeVuln = (isEssentialLevel || isCompliantLevel) && item === 'Vulnerability patchmanagement';
+                  const spacerBeforeVuln = (isEssentialLevel || isCompliantLevel) && 
+                    item === 'Vulnerability patchmanagement';
                   const spacerBeforeFirst = isCompliantLevel && index === 0;
-                  const spacerAfterCompany = isCompliantLevel && item === 'Company specific risk assessment (Fysieke audits per jaar)';
+                  const spacerAfterCompany = isCompliantLevel && 
+                    item === 'Company specific risk assessment (Fysieke audits per jaar)';
                   const alwaysUnchecked = item === 'Company specific risk assessment (Fysieke audits per jaar)';
                   const checked = alwaysUnchecked ? false : idx <= levelIndex;
-                  const textColor = isActive ? '#000' : isPast ? '#9ca3af' : primaryColor;
+                  
                   return (
                     <React.Fragment key={item}>
-                      {spacerBeforeFirst && <li className="h-2"></li>}
-                      {spacerBeforeVuln && <li className="h-2"></li>}
-                      <li className="flex items-center" style={{ fontFamily: 'Rubik, sans-serif' }}>
-                        <span className="mr-2">{checked ? '✅' : '⬜'}</span>
-                        <span style={{ color: textColor }}>{item}</span>
+                      {(spacerBeforeFirst || spacerBeforeVuln || spacerAfterCompany) && 
+                        <div className="h-4" />
+                      }
+                      <li className="item">
+                        <input
+                          type="checkbox"
+                          checked={checked}
+                          readOnly
+                          className="checkbox"
+                        />
+                        <span
+                          style={{
+                            color: isActive ? '#000' : 
+                                   isPast ? '#9CA3AF' : 
+                                   '#003965'
+                          }}
+                        >
+                          {item}
+                        </span>
                       </li>
-                      {spacerAfterCompany && <li className="h-2"></li>}
                     </React.Fragment>
                   );
                 })}
